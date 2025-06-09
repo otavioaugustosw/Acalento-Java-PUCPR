@@ -2,13 +2,14 @@ package com.littlecats.acalentoong.models;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
 
 public class SettlementFileHandler {
 
     private static final String FILE_PATH = "settlement.dat";
 
     public static void saveArray(ArrayList<Settlement> settlements) {
-        FileOutputStream f;
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
@@ -46,17 +47,45 @@ public class SettlementFileHandler {
         return settlements;
     }
 
-    public static void updateSettlement(Settlement oldSettlement, Settlement editedSettlement) {
+    public static void updateSettlement(Settlement updatedSettlement) {
         ArrayList<Settlement> settlements = fetchSettlements();
-        settlements.remove(oldSettlement);
-        settlements.add(editedSettlement);
-        saveArray(settlements);
+
+        // PROCURA O MESMO OBJETO NO ARRAY
+        Optional<Settlement> settlementToUpdate = settlements.stream()
+                .filter(s -> s.equals(updatedSettlement))
+                .findFirst();
+
+        // SE O OBJETO FOR ENCONTRADO, ELE ATUALIZA A ARMAZENADA COM OS NOVOS VALORES
+        settlementToUpdate.ifPresent(settlement -> {
+            settlement.setNome(updatedSettlement.getNome());
+            settlement.setNumeroDeFamilias(updatedSettlement.getNumeroDeFamilias());
+            settlement.setCep(updatedSettlement.getCep());
+            settlement.setRua(updatedSettlement.getRua());
+            settlement.setNumero(updatedSettlement.getNumero());
+            settlement.setBairro(updatedSettlement.getBairro());
+            settlement.setCidade(updatedSettlement.getCidade());
+            settlement.setEstado(updatedSettlement.getEstado());
+            saveArray(settlements);
+            System.out.println("Assentamento atualizado: " + settlement);
+        });
+
+        if (!settlementToUpdate.isPresent()) {
+            System.err.println("Não foi possível atualizar: Assentamento com ID " + updatedSettlement.getId() + " não encontrado");
+        }
     }
 
-    public static void deleteSettlement(Settlement settlementToDelete) {
+    public static void deleteSettlement(UUID idToDelete) {
         ArrayList<Settlement> settlements = fetchSettlements();
-        settlements.remove(settlementToDelete);
-        saveArray(settlements);
+
+        // REMOVE O OBJETO SE O ID FOR O DO OBJETO DESEJADO E RETORNA TRUE SE DELETADO
+        boolean removed = settlements.removeIf(settlement -> settlement.getId().equals(idToDelete));
+
+        if (removed) {
+            saveArray(settlements);
+            System.out.println("Assentamento com ID " + idToDelete + " foi removido");
+        } else {
+            System.err.println("Não foi possível deletar: Assentamento com ID " + idToDelete + " não encontrado");
+        }
     }
 
 }
