@@ -11,7 +11,7 @@ public class User implements Serializable {
     private final UUID id;
     private String name;
     private String cpf;
-    private Date birthDay;
+    private String birthDay;
     private String cellphone;
     private String email;
     private String password;
@@ -24,7 +24,7 @@ public class User implements Serializable {
     private String city;
     private String state;
 
-    public User(String name, String cpf, Date birthDay, String cellphone, String email, String password,
+    public User(String name, String cpf, String birthDay, String cellphone, String email, String password,
                 String cep, String street, String neighborhood, int number, String complement, String city, String state) {
         this.id = UUID.randomUUID();
         this.name = name;
@@ -53,8 +53,8 @@ public class User implements Serializable {
     public String getCpf() { return cpf; }
     public void setCpf(String cpf) { this.cpf = cpf; }
 
-    public Date getBirthDay() { return birthDay; }
-    public void setBirthDay(Date birthDay) { this.birthDay = birthDay; }
+    public String getBirthDay() { return birthDay; }
+    public void setBirthDay(String birthDay) { this.birthDay = birthDay; }
 
     public String getCellphone() { return cellphone; }
     public void setCellphone(String cellphone) { this.cellphone = cellphone; }
