@@ -26,7 +26,8 @@ public class CreateEventFormController {
         try {
             Event event = new Event(
                     nameField.getText(),
-                    dateField.getValue().toString(),                    timeField.getText(),
+                    dateField.getValue().toString(),
+                    timeField.getText(),
                     settlementField.getText(),
                     Integer.parseInt(capacityField.getText()),
                     descriptionField.getText()

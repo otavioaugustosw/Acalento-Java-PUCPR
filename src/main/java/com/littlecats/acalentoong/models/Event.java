@@ -78,11 +78,17 @@ public class Event implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event that = (Event) o;
-        return id == that.id;
+    public boolean equals(Object obj) {
+        if (this == obj)  {
+            return true;
+        }
+        else if (obj == null) {
+            return false;
+        }
+        else if (obj instanceof Event other) {
+            return Objects.equals(this.id, other.id);
+        }
+        return false;
     }
 
     @Override
