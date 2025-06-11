@@ -79,7 +79,7 @@ public class EventHomeView {
                     confirm.setHeaderText("Deletar evento");
                     confirm.showAndWait().ifPresent(response -> {
                         if (response == ButtonType.YES) {
-                            EventFileHandler.deleteEvent(selectedEvent);
+                            EventFileHandler.deleteEvent(selectedEvent.getId());
                             EventHomeView.show(stage);
                         }
                     });
@@ -87,6 +87,7 @@ public class EventHomeView {
                 });
             }
 
+            // se a celula estiver vazia não aparece os botões
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);

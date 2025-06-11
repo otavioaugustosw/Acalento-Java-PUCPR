@@ -15,6 +15,7 @@ public class EventFileHandler {
                 file.createNewFile();
             }
 
+            // escreve no file
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
             oos.writeObject(events);
             oos.close();
@@ -32,6 +33,7 @@ public class EventFileHandler {
         try {
             File file = new File(FILE_PATH);
             if (file.exists()) {
+                // lê o arquivo
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH));
                 list = (ArrayList<Event>)ois.readObject();
                 ois.close();
@@ -49,15 +51,11 @@ public class EventFileHandler {
         saveList(events);
     }
 
-    public static void deleteEvent(Event eventToDelete) {
-        ArrayList<Event> events = readList();
-        events.remove(eventToDelete);
-        saveList(events);
-    }
 
     public static void updateEvent(Event updateEvent) {
         ArrayList<Event> events = readList();
 
+        // verifica se existe no Array, se existir retorna true e se não existir retorna false
         Optional<Event> eventToUpdate = events.stream()
                 .filter(event -> event.equals(updateEvent)).findFirst();
 
