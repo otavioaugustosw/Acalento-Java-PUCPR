@@ -38,10 +38,8 @@ src/main/java/com/littlecats/acalentoong/
 
 Requisitos: JDK 24.
 
-A classe principal é `com.littlecats.acalentoong.Main`. O `pom.xml` ainda aponta `javafx:run` para `HelloApplication`, que não existe neste código, então informe a classe na linha de comando:
-
 ```sh
-./mvnw clean javafx:run -Djavafx.mainClass=com.littlecats.acalentoong/com.littlecats.acalentoong.Main
+./mvnw clean javafx:run
 ```
 
-No Windows, troque `./mvnw` por `mvnw.cmd`.
+No Windows, use `mvnw.cmd clean javafx:run`.
